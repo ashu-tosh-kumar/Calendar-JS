@@ -1,0 +1,19 @@
+{
+  "name": "express",
+  "version": "1.0.0",
+  "description": "This project aims to use JavaScript as a back-end to build a sample Calendar application. We aim not to use any external library for any purpose except very native standard libraries",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ashu-tosh-kumar/Calendar-JS.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ashu-tosh-kumar/Calendar-JS/issues"
+  },
+  "homepage": "https://github.com/ashu-tosh-kumar/Calendar-JS#readme"
+}
