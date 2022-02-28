@@ -25,3 +25,5 @@ Some features of the project:
 
 1. The above date matrix is `7x6`
 2. 100% unit test coverage
+
+This project is simply JavaScript version of [Calendar-Python](ttps://github.com/ashu-tosh-kumar/Calendar-Python/tree/master) project
