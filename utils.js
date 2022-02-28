@@ -172,3 +172,12 @@ function dateValidator(date, pivotDate) {
         throw InvalidDateFormat(`Given date: ${date} should be greater or equal to ${pivotDate}`);
     }
 }
+
+export {
+    isLeapYear,
+    countLeapYears,
+    getDefaultDaysInMonth,
+    getActualDaysInMonth,
+    numDaysBetweenDates,
+    dateValidator
+};
