@@ -1,5 +1,5 @@
-import { Date, PIVOT_DATE, PIVOT_DAY } from "./constants.js";
-import { dateValidator, getActualDaysInMonth, numDaysBetweenDates } from "./utils.js";
+import { constants } from "./constants.js";
+import { utils } from "./utils.js";
 
 
 function getDateMatrix(date) {
@@ -8,12 +8,12 @@ function getDateMatrix(date) {
     console.info(`Computing date matrix for: ${date}`);
 
     // Validation on date passed by user
-    dateValidator(date, PIVOT_DATE);
+    utils.dateValidator(date, constants.PIVOT_DATE);
 
-    const dateObj = Date(date)  // Convert into application specific Date object
+    const dateObj = constants.Date(date)  // Convert into application specific Date object
     dateObj.setDay(1);
-    const diffDaysFromPivotDate = numDaysBetweenDates(PIVOT_DATE, dateObj);
-    const currDay = (PIVOT_DAY + diffDaysFromPivotDate) % 7;
+    const diffDaysFromPivotDate = utils.numDaysBetweenDates(constants.PIVOT_DATE, dateObj);
+    const currDay = (constants.PIVOT_DAY + diffDaysFromPivotDate) % 7;
 
     //   S  M  T   W   T   F   S
     const dateMatrix = [];
@@ -26,7 +26,7 @@ function getDateMatrix(date) {
     let idx, jdx;
     idx = 0;
     jdx = currDay - 1;
-    let lastMonthDate = getActualDaysInMonth(dateObj.getMonth() - 1, dateObj.getYear());
+    let lastMonthDate = utils.getActualDaysInMonth(dateObj.getMonth() - 1, dateObj.getYear());
     while (jdx >= 0) {
         dateMatrix[idx][jdx] = lastMonthDate;
         lastMonthDate -= 1;
@@ -36,7 +36,8 @@ function getDateMatrix(date) {
     // Fill the current month
     idx = 0;
     jdx = currDay;
-    for (let day = 1; day <= getActualDaysInMonth(dateObj.getMonth(), dateObj.getYear()); day++) {
+    const thisMonthDate = utils.getActualDaysInMonth(dateObj.getMonth(), dateObj.getYear());
+    for (let day = 1; day <= thisMonthDate; day++) {
         dateMatrix[idx][jdx] = day;
         jdx += 1;
         if (jdx >= dateMatrix[0].length) {
@@ -62,7 +63,6 @@ function getDateMatrix(date) {
     return dateMatrix;
 }
 
-export {
+export const model = {
     getDateMatrix
 };
-

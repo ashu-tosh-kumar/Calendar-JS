@@ -67,7 +67,7 @@ const MONTHS_WITH_31_DAYS = new Set([
     MONTH.DECEMBER
 ]);
 
-export {
+export const constants = {
     DAY,
     MONTH,
     Date,
@@ -75,4 +75,3 @@ export {
     PIVOT_DAY,
     MONTHS_WITH_31_DAYS
 };
-

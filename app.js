@@ -1,9 +1,9 @@
 import express from "express";
-import { InvalidDateFormat } from "./exceptions.js";
-import { getDateMatrix } from "./model.js";
+import { exceptions } from "./exceptions.js";
+import { model } from "./model.js";
 
 const app = express();
-const port = 8080;
+const port = 8081;
 
 app.get('/', (req, res) => {
     res.send("Welcome to Calendar App. Please visit url: 'hostname:port/date' to try it.");
@@ -13,12 +13,12 @@ app.get('/:date', (req, res) => {
     const date = req.params.date;
     console.info(`GET call received to get date for: ${date}`);
     try {
-        const dateMatrix = getDateMatrix(date);
+        const dateMatrix = model.getDateMatrix(date);
         res.status(200);
         return res.send(dateMatrix);
     }
     catch (error) {
-        if (error instanceof InvalidDateFormat) {
+        if (error instanceof exceptions.InvalidDateFormat) {
             console.info("Date validation failed");
             res.status(400);
             return res.send(error.message);

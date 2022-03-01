@@ -5,6 +5,6 @@ class InvalidDateFormat extends Error {
     }
 }
 
-export {
+export const exceptions = {
     InvalidDateFormat
 };

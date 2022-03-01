@@ -1,5 +1,5 @@
-import { Date, MONTH, MONTHS_WITH_31_DAYS } from "./constants.js";
-import { InvalidDateFormat } from "./exceptions.js";
+import { constants } from "./constants.js";
+import { exceptions } from "./exceptions.js";
 
 
 function isLeapYear(year) {
@@ -10,7 +10,7 @@ function isLeapYear(year) {
     if (year % 4 === 0) {
         if (year % 100 === 0) {
             if (year % 400 == 0) {
-                return True;
+                return true;
             }
             else {
                 isLeapYearFlag = false;
@@ -51,10 +51,10 @@ function countLeapYears(date) {
 
 function getDefaultDaysInMonth(month) {
     // Returns no. of default days in a month without considering a leap year
-    if (MONTHS_WITH_31_DAYS.has(month)) {
+    if (constants.MONTHS_WITH_31_DAYS.has(month)) {
         return 31;
     }
-    else if (month === MONTH.FEBRUARY) {
+    else if (month === constants.MONTH.FEBRUARY) {
         return 28;
     }
     else {
@@ -67,7 +67,7 @@ function getActualDaysInMonth(month, year) {
     // Returns no. of default days in a month with considering a leap year
     // Makes use of`getDefaultDaysInMonth`
 
-    if (month === MONTH.FEBRUARY) {
+    if (month === constants.MONTH.FEBRUARY) {
         if (isLeapYear(year)) {
             return 29;
         }
@@ -112,68 +112,77 @@ function dateValidator(date, pivotDate) {
     let year, month, day;
     try {
         const yearMonthDay = date.split("-");
+
+        if (yearMonthDay.length < 3) {
+            throw new Error();
+        }
+
         year = yearMonthDay[0];
         month = yearMonthDay[1];
         day = yearMonthDay[2];
     }
     catch {
         console.info(`Failed to fetch year, month and/or day information from string: ${date}`);
-        throw new InvalidDateFormat(`String ${date} doesn't contain enough separators to specify year, month and day`);
+        throw new exceptions.InvalidDateFormat(`String ${date} doesn't contain enough separators to specify year, month and day`);
     }
 
     try {
         year = parseFloat(year);
         month = parseFloat(month);
         day = parseFloat(day);
+
+        if (isNaN(year) || isNaN(month) || isNaN(day)) {
+            throw new Error();
+        }
     }
     catch {
         console.info(`Year and/or month and/or day of date: ${date} is/are not numbers`);
-        throw new InvalidDateFormat(`String ${date} contains non-numeric values for year and/or month and/or day`);
+        throw new exceptions.InvalidDateFormat(`String ${date} contains non-numeric values for year and/or month and/or day`);
     }
 
     if (parseInt(year) !== year || parseInt(month) !== month || parseInt(day) !== day) {
         console.info(`Year and/or month and/or day of date: ${date} is/are not Integers`);
-        throw new InvalidDateFormat(`Year: ${year} or month: ${month} or day: ${day} is/are not integer(s)`);
+        throw new exceptions.InvalidDateFormat(`Year: ${year} or month: ${month} or day: ${day} is/are not integer(s)`);
     }
 
     if (month <= 0 || month > 12) {
         console.info(`Month of date: ${date} is not in range [1, 12]`);
-        throw new InvalidDateFormat(`Given month ${month} isn't between [1, 12]`);
+        throw new exceptions.InvalidDateFormat(`Given month ${month} isn't between [1, 12]`);
     }
 
     if (day < 0 || day > 31) {
         console.info(`Day of date: ${date} is not in range [1, 31]`);
-        throw new InvalidDateFormat(`Given day: ${day} isn't between [1, 31]`);
+        throw new exceptions.InvalidDateFormat(`Given day: ${day} isn't between [1, 31]`);
     }
 
     if (month === 2) {
         if (isLeapYear(year)) {
             if (day > 29) {
                 console.info(`Month of date: ${date} is not in range [1, 29] for a leap year`);
-                throw new InvalidDateFormat(`Given day: ${day} isn't between [1,29] for a leap year`);
+                throw new exceptions.InvalidDateFormat(`Given day: ${day} isn't between [1,29] for a leap year`);
             }
         }
         else {
             if (day > 28) {
                 console.info(`Month of date: ${date} is not in range [1, 28] for a non-leap year`);
-                throw new InvalidDateFormat(`Given day: ${day} isn't between [1,28] for a non-leap year`);
+                throw new exceptions.InvalidDateFormat(`Given day: ${day} isn't between [1,28] for a non-leap year`);
             }
         }
     }
-    else if (!MONTHS_WITH_31_DAYS.has(month)) {
+    else if (!constants.MONTHS_WITH_31_DAYS.has(month)) {
         if (day === 31) {
             console.info(`Month of date: ${date} is not in range [1,30]`);
-            throw new InvalidDateFormat(`Given day: ${day} isn't between [1, 30] for given month: ${month}`);
+            throw new exceptions.InvalidDateFormat(`Given day: ${day} isn't between [1, 30] for given month: ${month}`);
         }
     }
 
-    if (numDaysBetweenDates(pivotDate, Date(date)) < 0) {
+    if (numDaysBetweenDates(pivotDate, constants.Date(date)) < 0) {
         console.info(`Give: ${date} is less than the pivot date: ${pivotDate} and hence not supported`);
-        throw new InvalidDateFormat(`Given date: ${date} should be greater or equal to ${pivotDate}`);
+        throw new exceptions.InvalidDateFormat(`Given date: ${date} should be greater or equal to ${pivotDate}`);
     }
 }
 
-export {
+export const utils = {
     isLeapYear,
     countLeapYears,
     getDefaultDaysInMonth,
@@ -181,4 +190,3 @@ export {
     numDaysBetweenDates,
     dateValidator
 };
-
