@@ -9,10 +9,7 @@ const DAY = {
     SATURDAY: 6
 };
 
-const REVERSE_DAY = Object.fromEntries(Object.entries(DAY).map(day => day.reverse()))
-
 Object.freeze(DAY);
-Object.freeze(REVERSE_DAY);
 
 // represents a month in a year
 const MONTH = {
@@ -30,23 +27,20 @@ const MONTH = {
     DECEMBER: 12
 }
 
-const REVERSE_MONTH = Object.fromEntries(Object.entries(MONTH).map(month => month.reverse()))
-
 Object.freeze(MONTH);
-Object.freeze(REVERSE_MONTH);
 
 // Standardized date object used across the application
 const Date = (date) => {
     const yearMonthDay = date.split("-");
     const year = parseInt(yearMonthDay[0]);
-    const month = REVERSE_MONTH[parseInt(yearMonthDay[1])];
+    const month = parseInt(yearMonthDay[1]);
     let day = parseInt(yearMonthDay[2]);
 
     const getYear = () => year;
     const getMonth = () => month;
     const getDay = () => day;
     const setDay = (newDay) => { day = newDay; }
-    const getDate = () => `${year}-${MONTH[month]}-${day}`;
+    const getDate = () => `${year}-${month}-${day}`;
 
     return {
         getYear,
@@ -75,11 +69,10 @@ const MONTHS_WITH_31_DAYS = new Set([
 
 export {
     DAY,
-    REVERSE_DAY,
     MONTH,
-    REVERSE_MONTH,
     Date,
     PIVOT_DATE,
     PIVOT_DAY,
     MONTHS_WITH_31_DAYS
-}
+};
+
