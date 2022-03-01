@@ -19,7 +19,7 @@ For example, for the input `2022-01-31` , the calendar representation is below:
 Tech Stack
 
 1. JavaScript for back-end
-2. 
+2. Express for web server
 
 Some features of the project:
 
@@ -27,3 +27,20 @@ Some features of the project:
 2. 100% unit test coverage
 
 This project is simply JavaScript version of [Calendar-Python](ttps://github.com/ashu-tosh-kumar/Calendar-Python/tree/master) project
+
+## Features
+
+1. The above date matrix is `7x6`
+2. 100% unit test coverage
+
+JavaScript version of this project: [Calendar-JS](https://github.com/ashu-tosh-kumar/Calendar-JS)
+
+
+## Run Application
+1. Working directory required: `Calendar-JS`
+2. Run `node app.js`
+3. Hit the REST End point `localhost:8081/{YYYY-MM-DD}`
+
+## Run Tests
+1. Working directory required: `Calendar-Python`
+2. Run `npm test`
