@@ -1,5 +1,5 @@
-import { Date, PIVOT_DATE, PIVOT_DAY, REVERSE_DAY } from "constants";
-import { dateValidator, getActualDaysInMonth, numDaysBetweenDates } from "utils";
+import { Date, PIVOT_DATE, PIVOT_DAY } from "./constants.js";
+import { dateValidator, getActualDaysInMonth, numDaysBetweenDates } from "./utils.js";
 
 
 function getDateMatrix(date) {
@@ -13,7 +13,7 @@ function getDateMatrix(date) {
     const dateObj = Date(date)  // Convert into application specific Date object
     dateObj.setDay(1);
     const diffDaysFromPivotDate = numDaysBetweenDates(PIVOT_DATE, dateObj);
-    const currDay = REVERSE_DAY[(PIVOT_DAY + diffDaysFromPivotDate) % 7];
+    const currDay = (PIVOT_DAY + diffDaysFromPivotDate) % 7;
 
     //   S  M  T   W   T   F   S
     const dateMatrix = [];
@@ -25,8 +25,8 @@ function getDateMatrix(date) {
     // Fill the previous month
     let idx, jdx;
     idx = 0;
-    jdx = currDay.value - 1;
-    let lastMonthDate = getActualDaysInMonth(REVERSE_MONTH[dateObj.getMonth() - 1], dateObj.getYear());
+    jdx = currDay - 1;
+    let lastMonthDate = getActualDaysInMonth(dateObj.getMonth() - 1, dateObj.getYear());
     while (jdx >= 0) {
         dateMatrix[idx][jdx] = lastMonthDate;
         lastMonthDate -= 1;
@@ -35,7 +35,7 @@ function getDateMatrix(date) {
 
     // Fill the current month
     idx = 0;
-    jdx = currDay.value;
+    jdx = currDay;
     for (let day = 1; day <= getActualDaysInMonth(dateObj.getMonth(), dateObj.getYear()); day++) {
         dateMatrix[idx][jdx] = day;
         jdx += 1;
@@ -46,7 +46,7 @@ function getDateMatrix(date) {
     }
 
     // Fill the next month
-    const nextMonthDate = 1;
+    let nextMonthDate = 1;
     while (idx < dateMatrix.length) {
         dateMatrix[idx][jdx] = nextMonthDate;
         nextMonthDate += 1;
@@ -57,6 +57,12 @@ function getDateMatrix(date) {
         }
     }
 
-    console.info(`Date matrix for date: ${dateObj} is: {dateMatrix}`);
+    console.info(`Date matrix for date: ${dateObj.getDate()} is:`);
+    console.table(dateMatrix);
     return dateMatrix;
 }
+
+export {
+    getDateMatrix
+};
+
