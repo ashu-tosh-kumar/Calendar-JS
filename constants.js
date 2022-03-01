@@ -29,7 +29,11 @@ const MONTH = {
 
 Object.freeze(MONTH);
 
-// Standardized date object used across the application
+/**
+ * Standardized date object used across the application
+ * @param {string} date Date ("YYYY-MM-DD") that needs to be represented as a `Date` object
+ * @returns {Object} Object exposing arrow functions `getYear`, `getMonth`, `getDay`, `setDay`, `getDate`
+ */
 const Date = (date) => {
     const yearMonthDay = date.split("-");
     const year = parseInt(yearMonthDay[0]);

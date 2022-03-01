@@ -1,7 +1,11 @@
 import { constants } from "./constants.js";
 import { exceptions } from "./exceptions.js";
 
-
+/**
+ * 
+ * @param {number} year Year that needs to be checked
+ * @returns {boolean} Boolean flag as `true` if given `year` is a leap year else `false`
+ */
 function isLeapYear(year) {
     // Checks whetehr a year is leap year or not
     console.debug(`Checking year: ${year} for leap year`);
@@ -28,7 +32,12 @@ function isLeapYear(year) {
     return isLeapYearFlag;
 }
 
-
+/**
+ * Count number of leap years passed until given `date`
+ * it takes current year into consideration if `date` is beyond month of February else not
+ * @param {constants.Date} date Date until which we need to calculate no. of leap years
+ * @returns {number} No. of leap years passed until the `date`
+ */
 function countLeapYears(date) {
     // Count number of leap years passed until given `date`
     // It takes current year into consideration if `date` is beyond month of February else not
@@ -49,6 +58,11 @@ function countLeapYears(date) {
 }
 
 
+/**
+ * Returns no. of default days in a month without considering a leap year
+ * @param {constants.MONTH} month month for which default days is required
+ * @returns {number} No. of days in given month `month`
+ */
 function getDefaultDaysInMonth(month) {
     // Returns no. of default days in a month without considering a leap year
     if (constants.MONTHS_WITH_31_DAYS.has(month)) {
@@ -62,7 +76,13 @@ function getDefaultDaysInMonth(month) {
     }
 }
 
-
+/**
+ * Returns no. of actual days in a month with considering a leap year
+ * Makes use of `getDefaultDaysInMonth`
+ * @param {constants.MONTH} month month for which actual days is required
+ * @param {number} year Year in which no. of days is required for `month`
+ * @returns {number} No. of days in given month `month`
+ */
 function getActualDaysInMonth(month, year) {
     // Returns no. of default days in a month with considering a leap year
     // Makes use of`getDefaultDaysInMonth`
@@ -80,12 +100,24 @@ function getActualDaysInMonth(month, year) {
     }
 }
 
-
+/**
+ * Returns difference of days between two dates
+ * Makes use of `getDefaultDaysInMonth`, `countLeapYears`
+ * @param {constants.Date} baseDate Base date from which difference needs to be calculated
+ * @param {constants.Date} actualDate Actual date upto which difference needs to be calculated
+ * @returns {number} Difference of days between `totalDaysActualDate` `totalDaysBaseDate`
+ */
 function numDaysBetweenDates(baseDate, actualDate) {
     // Returns difference of days between two dates
     // Makes use of`getDefaultDaysInMonth`, `countLeapYears`
     console.debug(`Counting diff of days between: ${baseDate.getDate()} and ${actualDate.getDate()}`);
 
+    /**
+     * Returns no. of absolute days since begining until `date`
+     * Makes use of `getDefaultDaysInMonth`, `countLeapYears`
+     * @param {constants.Date} date Date for which absolute no. of days needs to be calculated
+     * @returns {number} No. of days since begining until `date`
+     */
     function calculateAbsoluteDays(date) {
         // Returns no. of absolute days since begining until `date`
         // Makes use of`getDefaultDaysInMonth`, `countLeapYears`
@@ -105,7 +137,12 @@ function numDaysBetweenDates(baseDate, actualDate) {
     return totalDaysActualDate - totalDaysBaseDate;
 }
 
-
+/**
+ * Validates a string date to be accepted by the application
+ * @param {string} date Date that needs to be validated
+ * @param {constants.Date} pivotDate Minimum possible date supported by the application
+ * @throws {exceptions.InvalidDateFormat} If the passed `date` fails the validations test(s)
+ */
 function dateValidator(date, pivotDate) {
     // Validates a string date to be accepted by the application
     console.info(`Validaing date: ${date}`);

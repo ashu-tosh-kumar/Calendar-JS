@@ -1,7 +1,11 @@
 import { constants } from "./constants.js";
 import { utils } from "./utils.js";
 
-
+/**
+ * Computes the date matrix for a given date
+ * @param {str} date Date for which calendar is required
+ * @returns {Array(Array)} Returns an array of array representing 7*6 calendar for the month as per `date`
+ */
 function getDateMatrix(date) {
     // Format: "YYYY-MM-DD"
     // Computes the date matrix for a given date
