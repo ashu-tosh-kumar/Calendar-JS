@@ -1,6 +1,6 @@
 # Calendar
 
-This project aims to use JavaScript as a back-end to build a sample Calendar application. We aim not to use any external library for any purpose except very native standard libraries
+This project aims to showcase how to setup a prod grade project. We are building an utility to return calendar for respective month for given input date using `JavaScript` as a back-end and `Express` as web server. We aim not to use any external library for any purpose except very native standard libraries. We have written unittests using `Jasmine`.
 
 The application accepts a date string in `YYYY-MM-DD` format and returns a calendar for that month filled with previous and/or next month dates to fulfill a `7x6` matrix.
 
