@@ -28,6 +28,7 @@
     "eslint-plugin-n": "^15.6.1",
     "eslint-plugin-promise": "^6.1.1",
     "jasmine": "^4.5.0",
+    "nodemon": "^2.0.21",
     "pre-commit": "^1.2.2"
   }
 }

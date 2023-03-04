@@ -41,4 +41,8 @@ const envConfigMapping = {
   development: DevelopmentConfig
 }
 const currEnv = process.env.env || 'development'
-export const config = envConfigMapping[currEnv]()
+if (!(currEnv in envConfigMapping)) {
+  throw Error(`Environment ${currEnv} not supported. Supported environments are: {${Object.keys(envConfigMapping)}}`)
+}
+
+export const config = new envConfigMapping[currEnv]()

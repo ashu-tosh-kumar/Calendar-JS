@@ -1,0 +1,13 @@
+version: "3.9"
+services:
+  calendar-js:
+    container_name: calendar-js
+    build:
+      context: .
+    volumes:
+      - "./:/calendar-js/"
+    ports:
+      - "0.0.0.0:8000:8000"
+    entrypoint: [ "bash" ]
+    command: [ "api/src/scripts/run_api.sh" ]
+    restart: unless-stopped

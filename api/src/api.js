@@ -1,4 +1,4 @@
-import app from './initializer'
+import { initializer } from './initializer.js'
 import { exceptions } from './exceptions.js'
 import { getDateMatrix } from './get_date_matrix.js'
 
@@ -10,7 +10,7 @@ const port = 8000
 * @param res - response object in API
 * @return {string} Returns string message
 */
-app.get('/', (_, res) => {
+initializer.app.get('/', (_, res) => {
   console.debug('Home GET end point called')
 
   res.send("Welcome to Calendar App. Please visit url: 'hostname:port/date' to try it.")
@@ -22,7 +22,7 @@ app.get('/', (_, res) => {
 * @param res - response object in API
 * @return {string} Returns string message
 */
-app.get('/health', (_, res) => {
+initializer.app.get('/health', (_, res) => {
   console.debug('Health GET end point called')
 
   res.send('Calendar App alive.')
@@ -34,7 +34,7 @@ app.get('/health', (_, res) => {
 * @param res - response object in API
 * @return Returns date matrix
 */
-app.get('/:date', (req, res) => {
+initializer.app.get('/date/:date', (req, res) => {
   const date = req.params.date
   console.info(`GET call received to get date for: ${date}`)
 
@@ -55,6 +55,6 @@ app.get('/:date', (req, res) => {
   }
 })
 
-app.listen(port, () => {
+initializer.app.listen(port, () => {
   console.log(`Example app listening on port ${port}`)
 })
