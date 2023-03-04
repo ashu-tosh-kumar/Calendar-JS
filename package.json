@@ -2,10 +2,11 @@
   "name": "express",
   "version": "1.0.0",
   "description": "This project aims to use JavaScript as a back-end to build a sample Calendar application. We aim not to use any external library for any purpose except very native standard libraries",
-  "main": "app.js",
+  "main": "api/src/app.js",
   "type": "module",
+  "spec_dir": "api/spec",
   "scripts": {
-    "test": "jasmine"
+    "test": "jasmine --config=api/spec/support/jasmine.json"
   },
   "repository": {
     "type": "git",
@@ -26,7 +27,7 @@
     "eslint-plugin-import": "^2.27.5",
     "eslint-plugin-n": "^15.6.1",
     "eslint-plugin-promise": "^6.1.1",
-    "jasmine": "^4.0.2",
+    "jasmine": "^4.5.0",
     "pre-commit": "^1.2.2"
   }
 }
