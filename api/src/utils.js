@@ -7,7 +7,7 @@ import { exceptions } from './exceptions.js'
  * @returns {boolean} Boolean flag as `true` if given `year` is a leap year else `false`
  */
 function isLeapYear (year) {
-  // Checks whetehr a year is leap year or not
+  // Checks whether a year is leap year or not
   console.debug(`Checking year: ${year} for leap year`)
 
   let isLeapYearFlag
@@ -39,6 +39,7 @@ function countLeapYears (date) {
   // Count number of leap years passed until given `date`
   // It takes current year into consideration if `date` is beyond month of February else not
   console.debug(`Counting no. of leap years until date: ${date.getDate()}`)
+
   let numLeapYearsUntilDate = 0
   let year = date.getYear()
 
@@ -60,7 +61,8 @@ function countLeapYears (date) {
  * @returns {number} No. of days in given month `month`
  */
 function getDefaultDaysInMonth (month) {
-  // Returns no. of default days in a month without considering a leap year
+  console.debug(`Getting default days for month: ${month}`)
+
   if (constants.MONTHS_WITH_31_DAYS.has(month)) {
     return 31
   } else if (month === constants.MONTH.FEBRUARY) {
@@ -78,8 +80,7 @@ function getDefaultDaysInMonth (month) {
  * @returns {number} No. of days in given month `month`
  */
 function getActualDaysInMonth (month, year) {
-  // Returns no. of default days in a month with considering a leap year
-  // Makes use of`getDefaultDaysInMonth`
+  console.debug(`Getting actual days for month: {month} for year: ${year}`)
 
   if (month === constants.MONTH.FEBRUARY) {
     if (isLeapYear(year)) {
@@ -100,25 +101,25 @@ function getActualDaysInMonth (month, year) {
  * @returns {number} Difference of days between `totalDaysActualDate` `totalDaysBaseDate`
  */
 function numDaysBetweenDates (baseDate, actualDate) {
-  // Returns difference of days between two dates
-  // Makes use of`getDefaultDaysInMonth`, `countLeapYears`
   console.debug(`Counting diff of days between: ${baseDate.getDate()} and ${actualDate.getDate()}`)
 
   /**
-     * Returns no. of absolute days since begining until `date`
+     * Returns no. of absolute days since beginning until `date`
      * Makes use of `getDefaultDaysInMonth`, `countLeapYears`
      * @param {constants.Date} date Date for which absolute no. of days needs to be calculated
-     * @returns {number} No. of days since begining until `date`
+     * @returns {number} No. of days since beginning until `date`
      */
   function calculateAbsoluteDays (date) {
-    // Returns no. of absolute days since begining until `date`
-    // Makes use of`getDefaultDaysInMonth`, `countLeapYears`
+    console.debug(`Calculating absolute number of days from beginning for date: ${date}`)
+
     let totalDays = date.getYear() * 365 + date.getDay()
     for (let i = 1; i < date.getMonth(); i++) {
       totalDays += getDefaultDaysInMonth(i)
     }
 
     totalDays += countLeapYears(date)
+    console.debug(`Absolute number of days from beginning for date: {date} calculated = ${totalDays}`)
+
     return totalDays
   }
 
@@ -137,7 +138,7 @@ function numDaysBetweenDates (baseDate, actualDate) {
  */
 function dateValidator (date, pivotDate) {
   // Validates a string date to be accepted by the application
-  console.info(`Validaing date: ${date}`)
+  console.info(`Validating date: ${date}`)
   let year, month, day
   try {
     const yearMonthDay = date.split('-')

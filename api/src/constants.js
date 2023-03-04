@@ -40,11 +40,11 @@ const Date = (date) => {
   const month = parseInt(yearMonthDay[1])
   let day = parseInt(yearMonthDay[2])
 
-  const getYear = () => year
-  const getMonth = () => month
-  const getDay = () => day
-  const setDay = (newDay) => { day = newDay }
-  const getDate = () => `${year}-${month}-${day}`
+  const getYear = () => year // Returns value of year
+  const getMonth = () => month // Returns value of month
+  const getDay = () => day // Returns value of day
+  const setDay = (newDay) => { day = newDay } // Allows setting value of day
+  const getDate = () => `${year}-${month}-${day}` // Returns value of date
 
   return {
     getYear,

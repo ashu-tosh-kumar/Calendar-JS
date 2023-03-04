@@ -1,4 +1,4 @@
-import { model } from '../src/model.js'
+import { getDateMatrix } from '../src/get_date_matrix.js'
 import { utils } from '../src/utils.js'
 import { exceptions } from '../src/exceptions.js'
 import { fakeRaiseInvalidDateFormat } from './mocks.js'
@@ -8,13 +8,13 @@ describe('Test getDateMatrix', () => {
     const dummyDate = '2022-13-15' // Invalid month 13
     spyOn(utils, 'dateValidator').and.callFake(fakeRaiseInvalidDateFormat)
 
-    expect(function () { model.getDateMatrix(dummyDate) }).toThrow(new exceptions.InvalidDateFormat('unittest-invalid-date-format-exception'))
+    expect(function () { getDateMatrix(dummyDate) }).toThrow(new exceptions.InvalidDateFormat('unittest-invalid-date-format-exception'))
   })
 
   it('Should return expected date matrix', () => {
     const dummyDate = '2022-02-28'
     spyOn(utils, 'dateValidator').and.returnValue(true)
-    // The code in model.js makes date as 1, so this value wouldn't be the actual different between dummyDate and PIVOT_DATE
+    // The code in get_date_matrix.js makes date as 1, so this value wouldn't be the actual different between dummyDate and PIVOT_DATE
     spyOn(utils, 'numDaysBetweenDates').and.returnValue(98373)
     spyOn(utils, 'getActualDaysInMonth').and.returnValues(31, 28)
     const expectedValue = [
@@ -26,7 +26,7 @@ describe('Test getDateMatrix', () => {
       [6, 7, 8, 9, 10, 11, 12]
     ]
 
-    const actualValue = model.getDateMatrix(dummyDate)
+    const actualValue = getDateMatrix(dummyDate)
 
     expect(actualValue).toEqual(expectedValue)
   })
@@ -46,7 +46,7 @@ describe('Test getDateMatrix', () => {
       [1, 2, 3, 4, 5, 6, 7]
     ]
 
-    const actualValue = model.getDateMatrix(dummyDate)
+    const actualValue = getDateMatrix(dummyDate)
 
     expect(actualValue).toEqual(expectedValue)
   })
@@ -66,7 +66,7 @@ describe('Test getDateMatrix', () => {
       [5, 6, 7, 8, 9, 10, 11]
     ]
 
-    const actualValue = model.getDateMatrix(dummyDate)
+    const actualValue = getDateMatrix(dummyDate)
 
     expect(actualValue).toEqual(expectedValue)
   })
@@ -86,7 +86,7 @@ describe('Test getDateMatrix', () => {
       [4, 5, 6, 7, 8, 9, 10]
     ]
 
-    const actualValue = model.getDateMatrix(dummyDate)
+    const actualValue = getDateMatrix(dummyDate)
 
     expect(actualValue).toEqual(expectedValue)
   })

@@ -6,7 +6,7 @@ import { utils } from './utils.js'
  * @param {str} date Date for which calendar is required
  * @returns {Array(Array)} Returns an array of array representing 7*6 calendar for the month as per `date`
  */
-function getDateMatrix (date) {
+export function getDateMatrix (date) {
   // Format: "YYYY-MM-DD"
   // Computes the date matrix for a given date
   console.info(`Computing date matrix for: ${date}`)
@@ -65,8 +65,4 @@ function getDateMatrix (date) {
   console.info(`Date matrix for date: ${dateObj.getDate()} is:`)
   console.table(dateMatrix)
   return dateMatrix
-}
-
-export const model = {
-  getDateMatrix
 }
